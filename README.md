@@ -37,6 +37,7 @@ after the database is set you need to create 2 database, one for dev and one for
 ### 2.  DB Creation and Migrations
 
 the first script to run is the DB Migration script for creating the Database Tables
+but before running the migration update database.json file with your database information
 
 ```
 npm run dbsetup
