@@ -27,7 +27,7 @@ describe('product model testing', () => {
             partNumber: 'iphone-12',
         });
         expect(result).toEqual({
-            id: 1,
+            id: 2,
             title: 'iPhone 12',
             part_number: 'iphone-12',
             price: 1000,
@@ -42,6 +42,12 @@ describe('product model testing', () => {
                 part_number: 'iphone-12',
                 price: 1000,
             },
+            {
+                id: 2,
+                title: 'iPhone 12',
+                part_number: 'iphone-12',
+                price: 1000,
+            }
         ]);
     });
     it('show method should return the correct product', async () => {

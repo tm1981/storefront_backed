@@ -36,10 +36,23 @@ Body {
 
 #### Orders
 - Current Order by user (args: user id)[token required] - [GET] http://localhost:3000/api/orders/current
-- [OPTIONAL] Completed Orders by user (args: user id)[token required] [GET] http://localhost:3000/api/orders/complete
+- Completed Orders by user (args: user id)[token required] [GET] http://localhost:3000/api/orders/complete
 user_id value should be in the body
 {
     "user_id" : "1"
+}
+- Create [token required] [POST] http://localhost:3000/api/orders - return the created order, order data should be in the body of the request like this example
+Body {
+    "user_id": 1,
+    "order_status": "active"
+}
+
+#### Order-Products
+- addProduct [token required] [POST] http://localhost:3000/api/orders/:id/products - add aproduct to order with quantity
+:id - is the order id
+Body {
+    "product_id": 1,
+    "quantity: 10
 }
 
 ## Data Shapes
@@ -57,28 +70,36 @@ user_id value should be in the body
 
 #### Orders
 - id
-- order_id - id of each product in the order
-- quantity - quantity of each product in the order
 - user_id
 - order_status - status of order (active or complete)
+
+#### Order-Products 
+- id
+- quantity - quantity of each product in the order
+- order_id - reference from the orders table
+- product_id - reference from the products table
 
 ## Schema
 
 #### Products
 id SERIAL PRIMARY KEY, 
-title VARCHAR(100), 
-price integer, 
-partNumber VARCHAR(100)
+title VARCHAR(100) NOT NULL, 
+price integer NOT NULL, 
+part_number VARCHAR(100) NOT NULL
 
 #### User
 id SERIAL PRIMARY KEY,
-firstname VARCHAR(100),
-lastname VARCHAR(100),
-password_digest VARCHAR
+firstname VARCHAR(100) NOT NULL,
+lastname VARCHAR(100) NOT NULL,
+password_digest VARCHAR NOT NULL
 
 #### Order
 id SERIAL PRIMARY KEY,
-product_id integer,
+user_id integer NOT NULL,
+order_status VARCHAR(10) NOT NULL
+
+#### Order-Products
+id SERIAL PRIMARY KEY,
 quantity integer,
-user_id integer,
-order_status VARCHAR(10)
+order_id bigint REFERENCES orders(id),
+product_id bigint REFERENCES products(id)

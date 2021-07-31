@@ -1,10 +1,8 @@
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
-    product_id integer,
-    quantity integer,
-    user_id integer,
-    order_status VARCHAR(10)
+    user_id integer NOT NULL,
+    order_status VARCHAR(10) NOT NULL
 );
 
-INSERT INTO orders (product_id, quantity, user_id, order_status) VALUES(1, 1, 1, 'active');
-INSERT INTO orders (product_id, quantity, user_id, order_status) VALUES(2, 1, 1, 'complete');
+INSERT INTO orders (user_id, order_status) VALUES(1, 'active');
+INSERT INTO orders (user_id, order_status) VALUES(1, 'complete');
